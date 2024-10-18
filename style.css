@@ -1,0 +1,42 @@
+* {
+    margin: 0%;
+    padding: 0%;
+}
+.container {
+    padding: 10px !important;
+    background-color: blueviolet !important;
+}
+h1 {
+    margin: 0px 30px;
+}
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* background-color: antiquewhite; */
+}
+.inputs > input {
+    width: 100%;
+    border-radius:5px; 
+    padding: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    /* background-color: aquamarine; */
+}
+textarea {
+    width: 100%;
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius:5px; 
+}
+textarea {
+    height: 100px;
+}
+#editBtn , #delBtn {
+    padding: 0px 10px;
+    border: none;
+    outline: none;
+    background-color: aquamarine;
+}
