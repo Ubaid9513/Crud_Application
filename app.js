@@ -13,12 +13,15 @@ fetchPosts();
 
 function displayData(posts) {
   console.log(posts);
+
+  const tableBody = document.getElementById("tableBody");
+  tableBody.innerHTML = "";
+  
   posts.forEach((post) => {
     // console.log(post.id);
-    let tableBody = document.getElementById("tableBody");
     let tableBodyData = `
     <tr>
-                    <th><img src="./Images/WhatsApp Image 2023-12-28 at 04.50.00_10722079.jpg" alt="img"
+                    <th><img src="${post.avatar}" alt="img"
                             style="width: 40px; height: 40px; border-radius: 50%;"></th>
                     <td>${post.name}</td>
                     <td>${post.title}</td>
@@ -132,10 +135,10 @@ function updatePost(id) {
       })
       .catch((error) => console.log("Error", error));
 
-      updatePostForm.userName.value = "";
-      updatePostForm.userTitle.value = "";
-      updatePostForm.avatar.value = "";
-      updatePostForm.body.value = "";
+    updatePostForm.userName.value = "";
+    updatePostForm.userTitle.value = "";
+    updatePostForm.avatar.value = "";
+    updatePostForm.body.value = "";
   });
 }
 // updatePostForm.addEventListener("submit",(e) => {
