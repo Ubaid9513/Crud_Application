@@ -1,4 +1,6 @@
 const apiUrl = "https://66f91ca12a683ce97310ef75.mockapi.io/api/vi/posts";
+const createPostForm = document.getElementById("createPostForm");
+const updatePostForm = document.getElementById("updatePostForm");
 
 function fetchPosts() {
   fetch(apiUrl)
@@ -35,13 +37,13 @@ function displayData(posts) {
 
 // CREATE POST
 
-document.getElementById("createPostForm").addEventListener("submit", (e) => {
+createPostForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // console.log(e);
-  let name = document.getElementById("userName").value;
-  let title = document.getElementById("userTitle").value;
-  let avatar = document.getElementById("userProfileUrl").value;
-  let body = document.getElementById("body").value;
+  const name = document.getElementById("userName").value;
+  const title = document.getElementById("userTitle").value;
+  const avatar = document.getElementById("avatar").value;
+  const body = document.getElementById("body").value;
 
   const newPost = {
     name: name,
@@ -60,6 +62,11 @@ document.getElementById("createPostForm").addEventListener("submit", (e) => {
     .then((response) => response.json())
     .then((data) => console.log(data))
     .catch((error) => console.log("Error", error));
+
+  document.getElementById("userName").value = "";
+  document.getElementById("userTitle").value = "";
+  document.getElementById("avatar").value = "";
+  document.getElementById("body").value = "";
 });
 
 // DELETE POST
@@ -70,7 +77,7 @@ function delPost(id) {
     method: "DELETE",
   })
     .then((response) => {
-      if(response.ok) {
+      if (response.ok) {
         console.log("response", response);
         return response.json();
       }
@@ -85,17 +92,78 @@ function updatePost(id) {
   console.log(id);
 
   fetch(`${apiUrl}/${id}`)
-  .then(response => response.json())
-  .then((post) => {
-    console.log(post.avatar);
-    document.getElementById("createPostForm").style.display = "none";
-    document.getElementById("updatePostForm").style.display = "block";
-    document.getElementById("updatePostForm").name.value = post.name;
-    document.getElementById("updatePostForm").title.value = post.title;
-    document.getElementById("updatePostForm").avatar.value = post.avatar;
-    document.getElementById("updatePostForm").body.value = post.body;
+    .then((response) => response.json())
+    .then((post) => {
+      console.log(post);
+      createPostForm.style.display = "none";
+      updatePostForm.style.display = "block";
+      updatePostForm.userName.value = post.name;
+      updatePostForm.userTitle.value = post.title;
+      updatePostForm.avatar.value = post.avatar;
+      updatePostForm.body.value = post.body;
+    })
+    .catch((error) => console.log("Error", error));
 
+  updatePostForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log(e);
+    const name = updatePostForm.userName.value;
+    const title = updatePostForm.userTitle.value;
+    const avatar = updatePostForm.avatar.value;
+    const body = updatePostForm.body.value;
 
-  })
-  .catch((error) => console.log("Error",error))
-};
+    const updatedPost = {
+      name: name,
+      title: title,
+      avatar: avatar,
+      body: body,
+    };
+    fetch(`${apiUrl}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPost),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(`${data.name} Successfully Updated`);
+        fetchPosts();
+      })
+      .catch((error) => console.log("Error", error));
+
+      updatePostForm.userName.value = "";
+      updatePostForm.userTitle.value = "";
+      updatePostForm.avatar.value = "";
+      updatePostForm.body.value = "";
+  });
+}
+// updatePostForm.addEventListener("submit",(e) => {
+//   e.preventDefault();
+//   console.log(e);
+//   const name = updatePostForm.name.value;
+//   const title = updatePostForm.title.value;
+//   const avatar = updatePostForm.avatar.value;
+//   const body = updatePostForm.body.value;
+
+//   const updatedPost = {
+//     name: name,
+//     title: title,
+//     avatar: avatar,
+//     body: body,
+//   }
+//   fetch(`${apiUrl}/${id}`,{
+//     method : "PUT",
+//     headers : {
+//       "Content-Type" : "application/json"
+//     },
+//     body : JSON.stringify(updatedPost),
+//   })
+//   .then((response) => response.json())
+//   .then((data) => {
+//     alert(`${data.name} Successfully Updated`);
+//     fetchPosts();
+//   })
+//   .catch((error) => console.log("Error",error));
+
+// })
