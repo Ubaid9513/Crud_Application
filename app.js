@@ -141,32 +141,3 @@ function updatePost(id) {
     updatePostForm.body.value = "";
   });
 }
-// updatePostForm.addEventListener("submit",(e) => {
-//   e.preventDefault();
-//   console.log(e);
-//   const name = updatePostForm.name.value;
-//   const title = updatePostForm.title.value;
-//   const avatar = updatePostForm.avatar.value;
-//   const body = updatePostForm.body.value;
-
-//   const updatedPost = {
-//     name: name,
-//     title: title,
-//     avatar: avatar,
-//     body: body,
-//   }
-//   fetch(`${apiUrl}/${id}`,{
-//     method : "PUT",
-//     headers : {
-//       "Content-Type" : "application/json"
-//     },
-//     body : JSON.stringify(updatedPost),
-//   })
-//   .then((response) => response.json())
-//   .then((data) => {
-//     alert(`${data.name} Successfully Updated`);
-//     fetchPosts();
-//   })
-//   .catch((error) => console.log("Error",error));
-
-// })
